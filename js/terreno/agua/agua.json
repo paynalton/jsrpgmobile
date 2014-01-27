@@ -1,4 +1,6 @@
 {
     "nombre":"agua",
-    "rec":[0,0,10,10]
+    "rec":[345,100,30,30],
+    "source":"img/map.png",
+    "scale":1
 }

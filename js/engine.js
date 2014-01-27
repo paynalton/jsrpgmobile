@@ -82,7 +82,7 @@ var rpgengine_c={
         }
     },
     dibujarMapa:function(){
-        this.opciones._adapter.dibujar();
+        this.opciones._adapter.dibujar(this.opciones.loadedCells);
     }
     ,
     _parseMapaPath:function(path,keys){

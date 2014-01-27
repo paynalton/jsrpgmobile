@@ -2,6 +2,7 @@ var mapAdapter_h=function(opciones){
     this.cargarOpciones=rpgengine_c.cargarOpciones;
     this.opciones=mapAdapter_c.opciones;
     this.dibujar=mapAdapter_c.dibujar;
+    this.getCell=mapAdapter_c.getCell;
     this.init=mapAdapter_c.init;
     this.getGrid=mapAdapter_c.getGrid;
     this.init(opciones);
@@ -36,7 +37,33 @@ var mapAdapter_c={
         });
     },
     
-    dibujar:function(){
-        console.log("dibujando");
+    dibujar:function(cellMap){
+        var x=0;
+        var y=0;
+        var grid=this.opciones.grid;
+        var map=this.opciones.map;
+        for(x=0;x<grid.opciones.cols;x++){
+            for(y=0;y<grid.opciones.rows;y++){
+                var cell=this.getCell(x,y,cellMap);
+                if(cell){
+                    grid.renderCell(x,y,cell,this.opciones.canvas);
+                }
+            }
+        }
+        
+        console.log(this.opciones);
+    },
+    getCell:function(x,y,cellMap){
+        var map=this.opciones.map;
+        var type=null;
+        if(typeof(map)!=="undefined"&&typeof(map[x])!=="undefined"&&typeof(map[x][y])!=="undefined"&&typeof(this.opciones.cellDefinitions[parseInt(map[x][y])])!=="undefined"&&typeof(cellMap[this.opciones.cellDefinitions[parseInt(map[x][y])]])!=="undefined"){
+            type=cellMap[this.opciones.cellDefinitions[parseInt(map[x][y])]];
+            
+        }
+        if(type){
+            var cell=new function(){};
+            cell.type=type;
+            return cell;
+        }
     }
 };
